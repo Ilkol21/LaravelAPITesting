@@ -18,6 +18,9 @@ This repository contains a Laravel-based API project running inside Docker conta
 ### Database credentials are configured in the .env file inside the docker_s directory.
 The application runs on port 92: http://localhost:92
 
+### Demo project in video:
+https://www.youtube.com/watch?v=Fd6uP7909XM&ab_channel=Laraprojects
+
 ### Authentication 🔒
 POST /api/user/register - Register a new user
 
