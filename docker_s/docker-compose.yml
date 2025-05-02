@@ -1,0 +1,50 @@
+version: "3.1"
+services:
+  webserver:
+    image: nginx:alpine
+    container_name: ${PROJECT_NAME}-webserver
+    working_dir: /application
+    networks:
+      - internal
+    volumes:
+      - ./../:/application
+      - ./sourcefiles/nginx:/etc/nginx/conf.d
+    ports:
+      - "${NGINX_PORT}:80"
+
+  php-fpm:
+    build: sourcefiles/php-fpm
+    container_name: ${PROJECT_NAME}-php-fpm
+
+    working_dir: /application
+    environment:
+      - PHP_WORKER_INSTALL_BCMATH=true
+    volumes:
+      - ./../:/application
+      - ./sourcefiles/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+    networks:
+      - internal
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: ${PROJECT_NAME}-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:3306"
+    networks:
+      - internal
+
+volumes:
+  mariadb-data:
+    driver: local
+
+networks:
+  internal:
+    driver: bridge
