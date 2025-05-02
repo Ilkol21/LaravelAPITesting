@@ -7,27 +7,23 @@ This repository contains a Laravel-based API project running inside Docker conta
 1. Clone the repository:
    ```bash
    git clone [your-repository-url]
-Navigate to the Docker directory:
 
-bash
-cd docker_s
-Start the Docker containers:
+### Navigate to the Docker directory:
+   cd docker_s          
+   docker-compose up
+### Run database migrations inside the php-fpm container:
+      docker-compose exec php-fpm php artisan migrate
 
-bash
-docker-compose up
-Run database migrations inside the php-fpm container:
 
-bash
-docker-compose exec php-fpm php artisan migrate
-Database credentials are configured in the .env file inside the docker_s directory.
+### Database credentials are configured in the .env file inside the docker_s directory.
 The application runs on port 92: http://localhost:92
 
-Authentication 🔒
+### Authentication 🔒
 POST /api/user/register - Register a new user
 
 POST /api/user/login - Authenticate user (get API token)
 
-Categories 🗂
+### Categories 🗂
 POST /api/categories - Create category (requires auth)
 
 GET /api/categories - List all categories
@@ -36,7 +32,7 @@ PUT /api/categories/{id} - Update category (requires auth)
 
 DELETE /api/categories/{id} - Delete category (requires auth)
 
-Products 📦
+### Products 📦
 POST /api/products - Create product (requires auth)
 
 GET /api/products - List all products
@@ -45,7 +41,7 @@ PUT /api/products/{id} - Update product (requires auth)
 
 DELETE /api/products/{id} - Delete product (requires auth)
 
-Comments 💬
+### Comments 💬
 GET /api/products/{product_id}/comments - Get product comments
 
 POST /api/products/{product_id}/comments - Add comment (requires auth)
