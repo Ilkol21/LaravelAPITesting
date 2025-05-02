@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function index(Request $request)
+    {
+        // Получаем все комментарии с информацией о пользователе и продукте, отсортированные по дате
+        $comments = Comment::with('user', 'product')  // Загрузка связанных моделей
+        ->latest()  // Сортировка по дате (сначала новые)
+        ->paginate(10);  // Пагинация
+
+        // Возвращаем данные в виде ресурса
+        return CommentResource::collection($comments);
+    }
 
     public function store(CommentRequest $request, Product $product)
     {

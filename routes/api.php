@@ -20,6 +20,8 @@ Route::controller(UserController::class)->group(function () {
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{product}/comments', [CommentController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
+Route::get('comments', [CommentController::class, 'index']);
+
 
 // 🔐 Только для авторизованных
 Route::middleware('auth:sanctum')->group(function () {

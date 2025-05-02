@@ -43,12 +43,12 @@ class PurchaseController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Покупка оформлена',
+                'message' => 'Purchase is accepted',
                 'purchase_id' => $purchase->id
             ], 201);
         } catch (\Throwable $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Ошибка при оформлении заказа'], 500);
+            return response()->json(['error' => 'Error during shopping'], 500);
         }
     }
 }
