@@ -19,7 +19,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('popularity')->change(); // Если нужно, можно убрать default
+            $table->integer('popularity')->change();
         });
     }
 };

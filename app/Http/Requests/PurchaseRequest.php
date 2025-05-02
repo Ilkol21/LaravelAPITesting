@@ -11,7 +11,7 @@ class PurchaseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // Авторизация уже через middleware
+        return true;
     }
 
     public function rules(): array

@@ -16,16 +16,16 @@ Route::controller(UserController::class)->group(function () {
     Route::post('user/register', 'store');
 });
 
-// Публичные: просмотр товаров, фильтрация, категории, комменты
+// Public
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{product}/comments', [CommentController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('comments', [CommentController::class, 'index']);
 
 
-// 🔐 Только для авторизованных
+// 🔐 Only authorize
 Route::middleware('auth:sanctum')->group(function () {
-    // Текущий пользователь
+    // Current user
     Route::get('user', fn(Request $request) => UserResource::make($request->user()));
 
     Route::controller(UserController::class)->group(function () {
@@ -34,19 +34,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('products', ProductController::class)->except(['index']); // защищаем всё, кроме index
 
-    // Комментарии (создание и удаление)
+    // Comment
     Route::post('products/{product}/comments', [CommentController::class, 'store']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
 
-    // История покупок
+    // History
     Route::get('purchase-history', [PurchaseHistoryController::class, 'index']);
 
-    // Категории (кроме index — он уже публичный)
+    // Category
     Route::apiResource('categories', CategoryController::class)->except(['index']);
 
     Route::post('/purchase', [PurchaseController::class, 'store']);
 });
 
-// Прочее
 Route::get('/test', fn() => 'Test route works!');
 Route::get('/', fn() => 123);

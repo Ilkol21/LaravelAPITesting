@@ -12,12 +12,12 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
-        // Получаем все комментарии с информацией о пользователе и продукте, отсортированные по дате
-        $comments = Comment::with('user', 'product')  // Загрузка связанных моделей
-        ->latest()  // Сортировка по дате (сначала новые)
-        ->paginate(10);  // Пагинация
+        // Get all comments with information about user and product, sorted by date
+        $comments = Comment::with('user', 'product')
+        ->latest()
+        ->paginate(10);
 
-        // Возвращаем данные в виде ресурса
+
         return CommentResource::collection($comments);
     }
 

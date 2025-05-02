@@ -15,23 +15,23 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        // Фильтрация по категории
+        // Filter by category
         if ($request->has('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
-        // Фильтрация по диапазону цен
+        // Filter with price
         if ($request->has('min_price') && $request->has('max_price')) {
             $query->whereBetween('price', [$request->min_price, $request->max_price]);
         }
 
-        // Сортировка по популярности всегда
+        // Filter popularity
         $query->orderBy('popularity', 'desc');
 
-        // Подгружаем комментарии (если нужно)
+        // Load comments
         $query->with('comments.user');
 
-        // Получаем отфильтрованные товары с пагинацией
+        // Filtered data
         $products = $query->paginate(5);
 
         return ProductResource::collection($products);
@@ -46,24 +46,22 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
-        // Получаем валидированные данные из запроса
+
         $data = $request->validated();
 
-        // Если изображение передано, сохраняем его
+        // If the image has been transferred, save it
         if ($request->hasFile('image')) {
             // Сохраняем изображение в папку 'products' в публичном хранилище
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
-        // Если category_id не передано, возвращаем ошибку
+        // If category_id is not passed, we return an error
         if (!$request->has('category_id')) {
             return response()->json(['message' => 'Category ID is required'], 400);
         }
 
-        // Создаем новый продукт
         $product = Product::create($data);
 
-        // Возвращаем результат в виде ресурса
         return new ProductResource($product);
     }
 
