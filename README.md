@@ -1,61 +1,39 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Laravel API Project (Dockerized) 🚀
+This repository contains a Laravel-based API project running inside Docker containers. It provides user authentication, category and product management, comments, and purchase endpoints. The database credentials are configured in the .env file located inside the docker_s directory.
+Getting Started 🚀
+Follow these steps to get the project running locally:
+Clone the repository:
+bash
+git clone <repository-url>
+Navigate to the Docker directory:
+bash
+cd docker_s
+Start the Docker containers:
+bash
+docker-compose up
+Run database migrations inside the php-fpm container:
+bash
+docker-compose exec php-fpm php artisan migrate
+Database credentials are defined in the .env file inside the docker_s directory.
+The application runs on port 92, so it can be accessed at http://localhost:92.
+Authentication 🔒
+POST /api/user/register — Register a new user.
+POST /api/user/login — Authenticate a user and obtain an API token.
+Categories 🗂
+POST /api/categories — Create a new category (requires authorization).
+GET /api/categories — Retrieve a list of all categories.
+PUT /api/categories/{id} — Update an existing category by its ID (requires authorization).
+DELETE /api/categories/{id} — Delete a category by its ID (requires authorization).
+Products 📦
+POST /api/products — Create a new product (requires authorization).
+GET /api/products — Retrieve a list of all products.
+PUT /api/products/{id} — Update an existing product by its ID (requires authorization).
+DELETE /api/products/{id} — Delete a product by its ID (requires authorization).
+Comments 💬
+GET /api/products/{product_id}/comments — Retrieve all comments for a specific product.
+POST /api/products/{product_id}/comments — Add a new comment to a product (requires authorization).
+DELETE /api/comments/{comment_id} — Delete a comment by its ID (requires authorization).
+Purchase 🛒
+POST /api/purchase — Create a new purchase record (requires authorization).
+GET /api/purchase-history — Retrieve the purchase history of the authenticated user (requires authorization).
