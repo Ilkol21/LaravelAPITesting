@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('user/logout', 'logout');
     });
 
-    Route::apiResource('products', ProductController::class)->except(['index']); // защищаем всё, кроме index
+    Route::apiResource('products', ProductController::class)->except(['index']);
 
     // Comment
     Route::post('products/{product}/comments', [CommentController::class, 'store']);
